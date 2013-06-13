@@ -19,15 +19,12 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new Sdz\BlogBundle\SdzBlogBundle(),
-            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-            new Sdz\UserBundle\SdzUserBundle(),
-            new FOS\UserBundle\FOSUserBundle(),
-            new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
-            new Ornicar\AkismetBundle\OrnicarAkismetBundle(),
+            new DavidBadura\FixturesBundle\DavidBaduraFixturesBundle(),
+            new DavidBadura\FakerBundle\DavidBaduraFakerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+            $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
@@ -35,9 +32,6 @@ class AppKernel extends Kernel
             $bundles[] = new Lsw\VersionInformationBundle\LswVersionInformationBundle(); // git watch
             $bundles[] = new Elao\WebProfilerExtraBundle\WebProfilerExtraBundle(); // extra info
             $bundles[] = new JMS\DebuggingBundle\JMSDebuggingBundle($this);
-
-            $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
-            $bundles[] = new CoreSphere\ConsoleBundle\CoreSphereConsoleBundle();
         }
 
         return $bundles;
