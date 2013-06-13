@@ -1,0 +1,27 @@
+{% extends "SdzBlogBundle::layout.html.twig" %}
+
+{% block body -%}
+
+  <h2>{{ post.title }}</h2>
+  <i>Par {{ post.author }}, le {{ post.createdAt | date( 'd/m/Y' ) }}</i>
+
+  <div class="well">
+    {{ post.content }}
+  </div>
+
+  <p>
+    <a href="{{ path( 'sdzblog_index' ) }}" class="btn">
+        <i class="icon-chevron-left"></i>
+        Retour à la liste
+    </a>
+    <a href="{{ path( 'sdzblog_edit', { 'post_id': post.id } ) }}" class="btn">
+        <i class="icon-edit"></i>
+        Edit post
+    </a>
+    <a href="{{ path('sdzblog_delete', { 'post_id': post.id } ) }}" class="btn">
+        <i class="icon-trash"></i>
+        Delete post
+    </a>
+  </p>
+{% endblock %}
+

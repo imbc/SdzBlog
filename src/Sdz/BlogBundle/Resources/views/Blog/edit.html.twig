@@ -1,0 +1,24 @@
+{% extends "SdzBlogBundle::layout.html.twig" %}
+
+{% block body -%}
+<div>
+  <h2>Ajouter un article</h2>
+
+  {% include "SdzBlogBundle:Blog:form.html.twig" %}
+
+  <p>
+    Vous éditez un article déjà existant,
+    ne le changez pas trop pour éviter
+    aux membres de ne pas comprendre
+    ce qu'il se passe.
+  </p>
+
+  <p>
+    <a href="{{ path( 'sdzblog_view', { 'post_id': post.id } ) }}" class="btn">
+      <i class="icon-chevron-left"></i>
+      Retour à l'article
+    </a>
+  </p>
+</div>
+{% endblock %}
+

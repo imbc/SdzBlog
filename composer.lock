@@ -1095,22 +1095,22 @@
         {
             "name": "imbc/website-bundle",
             "version": "dev-master",
-            "target-dir": "Imbc/Bundle/WebsiteBundle",
+            "target-dir": "Imbc/WebsiteBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/imbc/WebsiteBundle.git",
-                "reference": "ac2a2525eb2fd6799c0e8513ecbaefeaedf9a8bb"
+                "reference": "a573142b570ef0e8a84721b0b2ae0c1e7da6dcca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/imbc/WebsiteBundle/zipball/ac2a2525eb2fd6799c0e8513ecbaefeaedf9a8bb",
-                "reference": "ac2a2525eb2fd6799c0e8513ecbaefeaedf9a8bb",
+                "url": "https://api.github.com/repos/imbc/WebsiteBundle/zipball/a573142b570ef0e8a84721b0b2ae0c1e7da6dcca",
+                "reference": "a573142b570ef0e8a84721b0b2ae0c1e7da6dcca",
                 "shasum": ""
             },
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
-                    "Imbc\\Bundle\\WebsiteBundle": ""
+                    "Imbc\\WebsiteBundle": ""
                 }
             },
             "license": [
@@ -1132,7 +1132,7 @@
                 "source": "https://github.com/imbc/WebsiteBundle/tree/master",
                 "issues": "https://github.com/imbc/WebsiteBundle/issues"
             },
-            "time": "2013-06-13 14:34:07"
+            "time": "2013-06-13 15:12:14"
         },
         {
             "name": "jdorn/sql-formatter",
