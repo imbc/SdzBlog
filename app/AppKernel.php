@@ -31,6 +31,10 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles[] = new RaulFraile\Bundle\LadybugBundle\RaulFraileLadybugBundle(); // custom var_dump
+            $bundles[] = new Lsw\VersionInformationBundle\LswVersionInformationBundle(); // git watch
+            $bundles[] = new Elao\WebProfilerExtraBundle\WebProfilerExtraBundle(); // extra info
+            $bundles[] = new JMS\DebuggingBundle\JMSDebuggingBundle($this);
 
             $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
             $bundles[] = new CoreSphere\ConsoleBundle\CoreSphereConsoleBundle();
@@ -42,5 +46,14 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+    }
+
+    protected function getContainerBaseClass()
+    {
+        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+            return '\JMS\DebuggingBundle\DependencyInjection\TraceableContainer';
+        }
+
+        return parent::getContainerBaseClass();
     }
 }

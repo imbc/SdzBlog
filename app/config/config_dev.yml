@@ -1,5 +1,6 @@
 imports:
     - { resource: config.yml }
+    - { resource: security.yml }
 
 framework:
     router:   { resource: "%kernel.root_dir%/config/routing_dev.yml" }
@@ -8,6 +9,21 @@ framework:
 web_profiler:
     toolbar: true
     intercept_redirects: false
+
+web_profiler_extra:
+    routing:
+        enabled:        true
+        display_in_wdt: true
+    container:
+        enabled:        true
+        display_in_wdt: true
+    assetic:
+        enabled:        true
+        display_in_wdt: true
+    twig:
+        enabled:        true
+#        enabled:        false
+        display_in_wdt: true
 
 monolog:
     handlers:
@@ -18,9 +34,37 @@ monolog:
         firephp:
             type:  firephp
             level: info
+        chromephp:
+            type:  chromephp
+            level: info
 
 assetic:
     use_controller: true
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+jms_debugging:
+    # You can set this to true if you want to automatically retrieve help
+    # messages for public exceptions. If you leave this set to false, you have
+    # to click the "search" button manually each time.
+    auto_help: false
+
+services:
+    twig.extension.debug:
+        class:        Twig_Extension_Debug
+        tags:
+            - { name: 'twig.extension' }
+
+raul_fraile_ladybug:
+    general:
+        expanded:             false
+    object:
+        max_nesting_level:   5
+        show_data:            true
+        show_classinfo:       true
+        show_constants:       true
+        show_methods:         true
+        show_properties:      true
+    array:
+        max_nesting_level:   8
