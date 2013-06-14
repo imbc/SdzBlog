@@ -1,7 +1,14 @@
 parameters:
 #    sdz_blog.example.class: Sdz\BlogBundle\Example
+    sdz_blog.antispam.class: Sdz\BlogBundle\Antispam\SdzAntispam
 
 services:
+    sdz_blog.antispam:
+        class: %sdz_blog.antispam.class%
+        arguments:
+            - '@mailer'
+            - '%locale%'
+            - 3
 #    sdz_blog.example:
 #        class: %sdz_blog.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

@@ -16,6 +16,12 @@ class BlogController extends Controller
             throw $this->createNotFoundException( 'Page inexistante (page = ' . $index . ')' );
         }
 
+//        $antispam = $this->get( 'sdz_blog.antispam' );
+//        if( $antispam->isSpam( $text ))
+//        {
+//            throw new \Exception( 'Votre message a été détecté comme spam !' );
+//        }
+
         $posts = array(
             array(
               'title'       => 'Mon weekend a Phi Phi Island !',
