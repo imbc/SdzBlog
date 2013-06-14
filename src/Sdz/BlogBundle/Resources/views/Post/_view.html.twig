@@ -7,10 +7,11 @@
     <div>
         <h2>
             {% if homepage %}
-                <a href="{{ path('sdzblog_post_view', { 'post_id': post.id }) }}">{{ post.title }}</a></h2>
+                <a href="{{ path('sdzblog_post_view', { 'post_id': post.id }) }}">{{ post.title }}</a>
             {% else %}
                 {{ post.title }}
             {% endif %}
+        </h2>
     </div>
 
     {% if post.image is not null %}

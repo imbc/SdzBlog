@@ -1,12 +1,12 @@
 {% extends "SdzBlogBundle::layout.html.twig" %}
 
 {% block title %}
-  Accueil - {{ parent() }}
+  Blog - {{ parent() }}
 {% endblock %}
 
 {% block body -%}
 
-    <h2>Liste des articles</h2>
+    <h2>Posts</h2>
 
     <div>
         {% for post in posts %}
@@ -14,7 +14,7 @@
                 {% include 'SdzBlogBundle:Post:_view.html.twig' with { 'homepage': true } %}
             </div>
         {% else %}
-            <div>Pas (encore !) d'articles</div>
+            <div>No post yet</div>
         {% endfor %}
     </div>
 
