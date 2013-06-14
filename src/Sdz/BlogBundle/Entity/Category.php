@@ -29,13 +29,13 @@ class Category
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection $posts
      *
-     * @ManyToMany(targetEntity="Sdz\BlogBundle\Entity\Post", mappedBy="categories")
+     * @ORM\ManyToMany(targetEntity="Sdz\BlogBundle\Entity\Post", mappedBy="categories")
      */
     protected $posts;
 
     public function __construct()
     {
-        $this->posts = new ArrayColletion();
+        $this->posts = new ArrayCollection();
     }
 
     /**

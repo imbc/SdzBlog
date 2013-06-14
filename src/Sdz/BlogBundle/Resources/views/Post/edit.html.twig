@@ -6,6 +6,7 @@
 
   {% include "SdzBlogBundle:Blog:form.html.twig" %}
 
+  {#% if post.id is defined %}
   <p>
     Vous éditez un article déjà existant,
     ne le changez pas trop pour éviter
@@ -14,11 +15,12 @@
   </p>
 
   <p>
-    <a href="{{ path( 'sdzblog_view', { 'post_id': post.id } ) }}" class="btn">
+    <a href="{{ path( 'sdzblog_post_view', { 'post_id': post.id } ) }}" class="btn">
       <i class="icon-chevron-left"></i>
       Retour à l'article
     </a>
   </p>
+  {% endif %#}
 </div>
 {% endblock %}
 

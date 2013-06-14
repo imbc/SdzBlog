@@ -45,7 +45,7 @@ class BlogController extends Controller
                 'createdAt' => new \Datetime() )
         );
 
-        return $this->render( 'SdzBlogBundle:Blog:index.html.twig', array(
+        return $this->render( 'SdzBlogBundle:Post:index.html.twig', array(
                     'posts' => $posts,
         ) );
     }

@@ -52,7 +52,7 @@ class Post
     /**
      * @var \Sdz\BlogBundle\Entity\Comment
      *
-     * @ORM\OneToMany(targetEntity="Sdz\BlogBundle\Entity\Comment", mappedBy="posts")
+     * @ORM\OneToMany(targetEntity="Sdz\BlogBundle\Entity\Comment", mappedBy="post")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $comments;
@@ -64,20 +64,20 @@ class Post
     protected $categories;
 
     /**
-     * @var datetime $createdAt
+     * @var datetime $created
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
-    protected $createdAt;
+    protected $created;
 
     /**
-     * @var datetime $updatedAt
+     * @var datetime $updated
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      */
-    protected $updatedAt;
+    protected $updated;
 
     /**
      * @var string $slug
@@ -101,8 +101,9 @@ class Post
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
-        $this->categories = new ArrayCollection();
+        $this->published    = false;
+        $this->comments     = new ArrayCollection();
+        $this->categories   = new ArrayCollection();
     }
 
         /**
@@ -215,6 +216,7 @@ class Post
         if( !$this->comments->contains( $comment ) )
         {
             $this->comments->add( $comment );
+            $comment->setPost( $this );
         }
     }
 
@@ -228,6 +230,7 @@ class Post
         if( $this->comments->contains( $comment ))
         {
             $this->comments->removeElement( $comment );
+            $comment->setPost( null );
         }
     }
 
@@ -268,23 +271,43 @@ class Post
     }
 
     /**
-     * Get $createdAt
+     * Get $created
      *
-     * @return datetime $createdAt
+     * @return datetime $created
      */
-    public function getCreatedAt()
+    public function getCreated()
     {
-        return $this->createdAt;
+        return $this->created;
     }
 
     /**
-     * Get $updatedAt
+     * Set $created
      *
-     * @return datetime $updatedAt
+     * @param \DateTime $datetime
      */
-    public function getUpdatedAt()
+    public function setCreated( \DateTime $datetime )
     {
-        return $this->updatedAt;
+        $this->created = $datetime;
+    }
+
+    /**
+     * Get $updated
+     *
+     * @return datetime $updated
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set $updated
+     *
+     * @param \DateTime $datetime
+     */
+    public function setUpdated( \DateTime $datetime )
+    {
+        $this->updated = $datetime;
     }
 
     /**
@@ -317,9 +340,9 @@ class Post
         $this->published = $bool;
     }
 
-    public function getYear( DateTime $date )
+    public function getYear( \DateTime $date )
     {
-        $date = ( $date !== null ) ? $date : $this->getCreatedAt() ;
+        $date = ( $date !== null ) ? $date : $this->getCreated() ;
         return $date->format( 'Y' );
     }
 }

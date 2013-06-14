@@ -14,6 +14,14 @@
     </h2>
     <i>Par {{ post.author }}, le {{ post.createdAt | date( 'd/m/Y' ) }}</i>
 
+    {% if post.categories.count > 0 %}
+        - Catégories :
+        {% for category in post.categories %}
+           {{ category.name }}
+        {% if not loop.last %} - {% endif %}
+        {% endfor %}
+    {% endif %}
+
     <div class="well">
         {{ post.content }}
     </div>
@@ -23,11 +31,11 @@
             <i class="icon-chevron-left"></i>
             Retour à la liste
         </a>
-        <a href="{{ path( 'sdzblog_edit', { 'post_id': post.id } ) }}" class="btn">
+        <a href="{{ path( 'sdzblog_post_edit', { 'post_id': post.id } ) }}" class="btn">
             <i class="icon-edit"></i>
             Edit post
         </a>
-        <a href="{{ path('sdzblog_delete', { 'post_id': post.id } ) }}" class="btn">
+        <a href="{{ path('sdzblog__post_delete', { 'post_id': post.id } ) }}" class="btn">
             <i class="icon-trash"></i>
             Delete post
         </a>

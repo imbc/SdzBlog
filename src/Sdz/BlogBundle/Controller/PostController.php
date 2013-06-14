@@ -4,6 +4,9 @@ namespace Sdz\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Sdz\BlogBundle\Entity\Post;
+use Sdz\BlogBundle\Entity\Image;
 
 /**
  * Description of PostController
@@ -35,7 +38,7 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository( 'SdzBlogBundle:Post' );
         $post = new Post();
-        if( !$request->get( 'post_id' ))
+        if( $request->get( 'post_id' ))
         {
             $post = $repo->findOneBy( array(
                 'id' => $request->get( 'post_id' ),
@@ -60,7 +63,7 @@ class PostController extends Controller
             $this->get( 'session' )->getFlashBag()->add( 'info', 'Article bien enregistré' );
 
             return $this->redirect(
-                                $this->generateUrl( 'sdzblog_view', array(
+                                $this->generateUrl( 'sdzblog_post_view', array(
                                     'id' => $post->getId()
                                 )
             ));

@@ -11,7 +11,7 @@
   <ul>
     {% for post in posts %}
       <li>
-        <a href="{{ path( 'sdzblog_view', { 'post_id': post.id } ) }}">{{ post.title }}</a>
+        <a href="{{ path( 'sdzblog_post_view', { 'post_id': post.id } ) }}">{{ post.title }}</a>
         par {{ post.author }},
         le {{ post.createdAt | date( 'd/m/Y' ) }}
       </li>

@@ -5,8 +5,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="Sdz\BlogBundle\Repository\CommentRepository")
+ * @ORM\Table(name="comment")
  */
 class Comment
 {
@@ -36,18 +36,26 @@ class Comment
     /**
      * @var \Sdz\BlogBundle\Entity\Post $post
      *
-     * @ORM\ManyToOne(targetEntity="\Sdz\BlogBundle\Entity\Post", inversedBy="comment")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="\Sdz\BlogBundle\Entity\Post", inversedBy="comments")
+     * @ORM\JoinColumn(name="blog_id", referencedColumnName="id", nullable=false)
      */
     protected $post;
 
     /**
-     * @var datetime $createdAt
+     * @var datetime $created
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
-    protected $createdAt;
+    protected $created;
+
+    /**
+     * @var datetime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    protected $updated;
 
     /**
      * Get $id
@@ -120,12 +128,42 @@ class Comment
     }
 
     /**
-     * Get $createdAt
+     * Get $created
      *
-     * @return datetime $createdAt
+     * @return datetime $created
      */
-    public function getCreatedAt()
+    public function getCreated()
     {
-        return $this->createdAt;
+        return $this->created;
+    }
+
+    /**
+     * Set $created
+     *
+     * @param \DateTime $datetime
+     */
+    public function setCreated( \DateTime $datetime )
+    {
+        $this->created = $datetime;
+    }
+
+    /**
+     * Get $updated
+     *
+     * @return datetime $updated
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set $updated
+     *
+     * @param \DateTime $datetime
+     */
+    public function setUpdated( \DateTime $datetime )
+    {
+        $this->updated = $datetime;
     }
 }
