@@ -122,7 +122,7 @@ class Comment
      *
      * @param \Sdz\BlogBundle\Entity\Sdz\BlogBundle\Entity\Post $post
      */
-    public function setPost( Sdz\BlogBundle\Entity\Post $post )
+    public function setPost( \Sdz\BlogBundle\Entity\Post $post )
     {
         $this->post = $post;
     }
@@ -142,7 +142,7 @@ class Comment
      *
      * @param \DateTime $datetime
      */
-    public function setCreated( \DateTime $datetime )
+    public function setCreated( $datetime )
     {
         $this->created = $datetime;
     }
@@ -162,7 +162,7 @@ class Comment
      *
      * @param \DateTime $datetime
      */
-    public function setUpdated( \DateTime $datetime )
+    public function setUpdated( $datetime )
     {
         $this->updated = $datetime;
     }

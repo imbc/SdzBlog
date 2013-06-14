@@ -50,7 +50,7 @@ class Post
     protected $image;
 
     /**
-     * @var \Sdz\BlogBundle\Entity\Comment
+     * @var \Doctrine\Common\Collections\ArrayCollection $comments
      *
      * @ORM\OneToMany(targetEntity="Sdz\BlogBundle\Entity\Comment", mappedBy="post")
      * @ORM\JoinColumn(nullable=false)
@@ -58,6 +58,8 @@ class Post
     protected $comments;
 
     /**
+     * @var \Doctrine\Common\Collections\ArrayCollection $categories
+     *
      * @ORM\ManyToMany(targetEntity="Sdz\BlogBundle\Entity\Category", inversedBy="posts", cascade={"persist"})
      * @ORM\JoinTable(name="posts_categories")
      */
@@ -285,7 +287,7 @@ class Post
      *
      * @param \DateTime $datetime
      */
-    public function setCreated( \DateTime $datetime )
+    public function setCreated( $datetime )
     {
         $this->created = $datetime;
     }
@@ -305,7 +307,7 @@ class Post
      *
      * @param \DateTime $datetime
      */
-    public function setUpdated( \DateTime $datetime )
+    public function setUpdated( $datetime )
     {
         $this->updated = $datetime;
     }

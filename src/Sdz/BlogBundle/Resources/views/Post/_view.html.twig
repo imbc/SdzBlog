@@ -1,0 +1,24 @@
+<div class="blog">
+    <div class="date"><time datetime="{{ post.created | date('c') }}">{{ post.created | date( 'l, F j, Y' ) }}</time></div>
+    <div>
+        <h2><a href="{{ path('sdzblog_post_view', { 'post_id': post.id }) }}">{{ post.title }}</a></h2>
+    </div>
+
+    <img src="{{ asset(['bundles/sdzblog/images/', post.image.url] | join) }}" alt="{{ post.image.alt }}" />
+    <div class="snippet">
+        <p>{{ post.content( 500 ) }}</p>
+        <p class="continue"><a href="{{ path( 'sdzblog_post_view', { 'post_id': post.id } ) }}">Continue reading...</a></p>
+    </div>
+
+    <div class="meta">
+        <p>Comments: {{ post.comments | length }}</p>
+        <p>Posted by <span class="highlight">{{ post.author }}</span> at {{ post.created | date( 'h:iA' ) }}</p>
+        <p>Category: <span class="highlight">
+            {% for category in post.categories %}
+                <a href="{{ path( 'sdzblog_category_view', { 'category_id': category.id } ) }}"{{ category.name  }}</a>
+                {% if not loop.last %} - {% endif %}
+            {% endfor %}
+        </span></p>
+    </div>
+</div>
+

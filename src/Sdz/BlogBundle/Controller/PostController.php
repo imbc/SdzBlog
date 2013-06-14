@@ -35,6 +35,7 @@ class PostController extends Controller
 
     public function editAction( Request $request )
     {
+        $edit = false;
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository( 'SdzBlogBundle:Post' );
         $post = new Post();
@@ -44,14 +45,6 @@ class PostController extends Controller
                 'id' => $request->get( 'post_id' ),
             ));
         }
-        // Création de l'entité
-        $post->setTitle( 'Mon dernier weekend' );
-        $post->setAuthor( 'Bibi');
-        $post->setContent( "C'était vraiment super et on s'est bien amusé." );
-
-        $image = new Image();
-        $image->setUrl( 'http://uploads.siteduzero.com/icones/478001_479000/478657.png' );
-        $image->setAlt( 'Logo Symfony2' );
 
         $post->setImage( $image );
 
