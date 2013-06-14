@@ -3,6 +3,7 @@ namespace Sdz\BlogBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="Sdz\BlogBundle\Entity\Repository\PostRepository")
@@ -49,6 +50,14 @@ class Post
     protected $image;
 
     /**
+     * @var \Sdz\BlogBundle\Entity\Comment
+     *
+     * @ORM\OneToMany(targetEntity="Sdz\BlogBundle\Entity\Comment", mappedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $comments;
+
+    /**
      * @var datetime $createdAt
      *
      * @Gedmo\Timestampable(on="create")
@@ -84,7 +93,12 @@ class Post
      */
     protected $year;
 
-    /**
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
+
+        /**
      * Get $id
      *
      * @return integer $id
@@ -172,6 +186,37 @@ class Post
     public function setImage( \Sdz\BlogBundle\Entity\Image $image )
     {
         $this->image = $image;
+    }
+
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Add $comment
+     *
+     * @param \Sdz\BlogBundle\Entity\Comment $comment
+     */
+    public function addComment( \Sdz\BlogBundle\Entity\Comment $comment )
+    {
+        if( !$this->comments->contains( $comment ) )
+        {
+            $this->comments->add( $comment );
+        }
+    }
+
+    /**
+     * Remove $comment
+     *
+     * @param \Sdz\BlogBundle\Entity\Comment $comment
+     */
+    public function removeComment( \Sdz\BlogBundle\Entity\Comment $comment )
+    {
+        if( $this->comments->contains( $comment ))
+        {
+            $this->comments->removeElement( $comment );
+        }
     }
 
     /**
