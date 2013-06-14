@@ -1,24 +1,42 @@
+{% set homepage = homepage | default( false ) %}
+
 <div class="blog">
-    <div class="date"><time datetime="{{ post.created | date('c') }}">{{ post.created | date( 'l, F j, Y' ) }}</time></div>
+    <div class="date">
+        <time datetime="{{ post.created | date('c') }}">{{ post.created | date( 'l, F j, Y' ) }}</time>
+    </div>
     <div>
-        <h2><a href="{{ path('sdzblog_post_view', { 'post_id': post.id }) }}">{{ post.title }}</a></h2>
+        <h2>
+            {% if homepage %}
+                <a href="{{ path('sdzblog_post_view', { 'post_id': post.id }) }}">{{ post.title }}</a></h2>
+            {% else %}
+                {{ post.title }}
+            {% endif %}
     </div>
 
-    <img src="{{ asset(['bundles/sdzblog/images/', post.image.url] | join) }}" alt="{{ post.image.alt }}" />
+    {% if post.image is not null %}
+        <img src="{{ asset(['bundles/sdzblog/images/', post.image.url] | join) }}" alt="{{ post.image.alt }}" />
+    {% endif %}
     <div class="snippet">
-        <p>{{ post.content( 500 ) }}</p>
-        <p class="continue"><a href="{{ path( 'sdzblog_post_view', { 'post_id': post.id } ) }}">Continue reading...</a></p>
+        {% if homepage %}
+            <p>{{ post.content( 500 ) }}</p>
+            <p class="continue"><a href="{{ path( 'sdzblog_post_view', { 'post_id': post.id } ) }}">Continue reading...</a></p>
+        {% else %}
+            <p>{{ post.content }}</p>
+        {% endif %}
     </div>
 
     <div class="meta">
         <p>Comments: {{ post.comments | length }}</p>
         <p>Posted by <span class="highlight">{{ post.author }}</span> at {{ post.created | date( 'h:iA' ) }}</p>
+        {% if post.categories.count > 0 %}
         <p>Category: <span class="highlight">
             {% for category in post.categories %}
                 <a href="{{ path( 'sdzblog_category_view', { 'category_id': category.id } ) }}"{{ category.name  }}</a>
                 {% if not loop.last %} - {% endif %}
             {% endfor %}
-        </span></p>
+        </span>
+        </p>
+        {% endif %}
     </div>
 </div>
 

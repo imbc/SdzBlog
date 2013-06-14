@@ -6,53 +6,33 @@
 
 {% block body -%}
 
-<div class="well">
-    <div>
-        {% if post.image is not null %}
-          <img src="{{ post.image.url }}" alt="{{ post.image.alt }}" />
-        {% endif %}
-    </div>
-    <div>
-        <h2>{{ post.title }}</h2>
-    </div>
-    <div>{{ post.content }}</div>
-</div>
-<i>Par {{ post.author }}, le {{ post.created | date( 'd/m/Y' ) }}</i>
-
-{% if post.categories.count > 0 %}
-    - Catégories :
-    {% for category in post.categories %}
-       {{ category.name }}
-    {% if not loop.last %} - {% endif %}
-    {% endfor %}
-{% endif %}
+{% include 'SdzBlogBundle:Post:_view.html.twig' %}
 
 
 <div class="comments" id="comments">
     <div class="previous-comments">
+    <h3>Comments:</h3>
         {% for comment in post.comments %}
-        <div class="comment {{ cycle( ['odd', 'even'], loop.index0 ) }}" id="comment-{{ comment.id }}">
             {% include 'SdzBlogBundle:Comment:_view.html.twig'  %}
-        </div>
         {% else %}
         <div>There are not comments for this post. Be the first one to comment ... </div>
         {% endfor %}
     </div>
 </div>
 
-<p>
-    <a href="{{ path( 'sdzblog_index' ) }}" class="btn">
+<div class="btn-group">
+    <a href="{{ path( 'sdzblog_index' ) }}" class="btn btn-mini">
         <i class="icon-chevron-left"></i>
         Retour à la liste
     </a>
-    <a href="{{ path( 'sdzblog_post_edit', { 'post_id': post.id } ) }}" class="btn">
+    <a href="{{ path( 'sdzblog_post_edit', { 'post_id': post.id } ) }}" class="btn btn-mini">
         <i class="icon-edit"></i>
         Edit post
     </a>
-    <a href="{{ path( 'sdzblog_post_delete', { 'post_id': post.id } ) }}" class="btn">
+    <a href="{{ path( 'sdzblog_post_delete', { 'post_id': post.id } ) }}" class="btn btn-mini">
         <i class="icon-trash"></i>
         Delete post
     </a>
-</p>
+</div>
 {% endblock %}
 

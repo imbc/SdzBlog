@@ -1,4 +1,6 @@
-<div>
-    written by <span class="highlight">{{ comment.author }}</span>, on <time datetime="{{ comment.created | date( 'c' ) }}">{{ comment.created | date( 'l, F j, Y' ) }}</time>
+<div class="comment {{ cycle( ['odd', 'even'], loop.index0 ) }}" id="comment-{{ comment.id }}">
+    <div>
+        written by <span class="highlight">{{ comment.author }}</span>, on <time datetime="{{ comment.created | date( 'c' ) }}">{{ comment.created | date( 'l, F j, Y' ) }}</time>
+    </div>
+    <div>{{ comment.content }}</div>
 </div>
-<div>{{ comment.content }}</div>

@@ -11,7 +11,7 @@
     <div>
         {% for post in posts %}
             <div>
-                {% include 'SdzBlogBundle:Post:_view.html.twig' %}
+                {% include 'SdzBlogBundle:Post:_view.html.twig' with { 'homepage': true } %}
             </div>
         {% else %}
             <div>Pas (encore !) d'articles</div>
