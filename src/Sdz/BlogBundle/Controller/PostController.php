@@ -50,19 +50,30 @@ class PostController extends Controller
         }
 //        $post->setImage( $image );
         $form = $this->createForm( new PostType(), $post );
-        if ( $request->getMethod() == 'POST' )
+        if ( 'POST' === $request->getMethod() )
         {
-            $this->get( 'session' )->getFlashBag()->add( 'info', 'F&UCK' );
+            $form->bindRequest( $request );
 
-            $form->bind( $request );
+            $this->get( 'ladybug' )->log( $form->isValid() );
+
             if ( $form->isValid() )
             {
+                $notify = $this->get( 'imbc.notify' );
+                $notify->add( 'success', array(
+                    'type'      => 'flash',
+                    'title'     => 'success',
+                    'message'   => 'The form has been saved',
+                ));
+                if( $notify->has( 'success' ) )
+                {
+                    $notifications = $notify->get( 'success' );
+                }
                 $em->persist( $post );
                 $em->flush();
-//                $this->get( 'session' )->getFlashBag()->add( 'info', 'Article bien enregistré' );
                 return $this->redirect(
                             $this->generateUrl( 'sdzblog_post_view', array(
-                                'post_id' => $post->getId()
+                                'post_id' => $post->getId(),
+                                'notifications' => $notifications
                             )
                 ));
             }

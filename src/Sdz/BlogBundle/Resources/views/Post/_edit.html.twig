@@ -1,8 +1,8 @@
 <h3>{% if edit == true %}Editing existing{% else %}New{% endif %} Post</h3>
 
-{{ ladybug_dump( post.vars.value.id ) }}
+{#{ ladybug_dump( post.vars.value.id ) }#}
 
-<form class="form-horizontal" method="POST" {{ form_enctype( post ) }}>
+<form method="POST" {{ form_enctype( post ) }} action="">
     <div class="form-horizontal">
         <div class="control-group">
             <div class="control-label">
@@ -28,10 +28,8 @@
                 {{ form_widget( post.published ) }}
             </div>
         </div>
+        <div>{{ form_errors( post ) }}</div>
+        <div>{{ form_rest( post ) }}</div>
     </div>
-    <div class="btn-group">
-        <input type="submit" class="btn btn-mini">
-            <i class="icon-ok"></i> Save Form
-        </input>
-    </div>
+    <input type="submit" class="btn btn-primary" />
 </form>
