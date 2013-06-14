@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
+use Sdz\BlogBundle\Entity\Post;
+
 class BlogController extends Controller
 {
     public function indexAction( Request $request )
@@ -98,6 +100,20 @@ class BlogController extends Controller
 
         return $this->render( 'SdzBlogBundle:Blog:menu.html.twig', array(
           'posts' => $posts
+        ));
+    }
+
+    public function testAction()
+    {
+        $post = new Post();
+        $post->setAuthor( 'Bibi' );
+        $post->setTitle( 'Mon dernier weekend' );
+        $post->setContent( 'C\'était vraiment super et on s\'est bien amusé.' );
+        $post->getSlug();
+        $post->getCreatedAt();
+
+        return $this->render( 'SdzBlogBundle:Post:test.html.twig', array(
+            'post' => $post,
         ));
     }
 }
