@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Post
 {
     /**
+     * @var integer $id
+     *
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -18,24 +20,33 @@ class Post
     protected $id;
 
     /**
-     * @var string
+     * @var string $title
      *
      * @ORM\Column(name="title", type="string", length=255)
      */
     protected $title;
 
     /**
-     * @var string
+     * @var string $content
      *
      * @ORM\Column(name="content", type="text")
      */
     protected $content;
 
     /**
-     * @var User
+     * @var User $author
+     *
      * @ORM\Column(name="author", type="string", length=255)
      */
     protected $author;
+
+    /**
+     * @var Sdz\BlogBundle\Entity\Image $image
+     *
+     * @ORM\OneToOne(targetEntity="Sdz\BlogBundle\Entity\Image", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $image;
 
     /**
      * @var datetime $createdAt
@@ -54,7 +65,7 @@ class Post
     protected $updatedAt;
 
     /**
-     * @var string
+     * @var string $slug
      *
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(length=128, unique=true)
@@ -62,72 +73,152 @@ class Post
     protected $slug;
 
     /**
-     * @var boolean
+     * @var boolean $published
      *
      * @ORM\Column(name="published", type="boolean")
      */
     protected $published;
 
     /**
-     * @var string
+     * @var string $year
      */
     protected $year;
 
+    /**
+     * Get $id
+     *
+     * @return integer $id
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * Get $title
+     *
+     * @return string $title
+     */
     public function getTitle()
     {
         return $this->title;
     }
 
+    /**
+     * Set $title
+     *
+     * @param string $title
+     */
     public function setTitle( $title )
     {
         $this->title = $title;
     }
 
+    /**
+     * Get $content
+     *
+     * @return string $content
+     */
     public function getContent()
     {
         return $this->content;
     }
 
+    /**
+     * Get $content
+     *
+     * @param string $content
+     */
     public function setContent( $content )
     {
         $this->content = $content;
     }
 
+    /**
+     * Get $author
+     *
+     * @return string $author
+     */
     public function getAuthor()
     {
         return $this->author;
     }
 
+    /**
+     * Set $author
+     *
+     * @param string $author
+     */
     public function setAuthor( $author )
     {
         $this->author = $author;
     }
 
+    /**
+     * Get $image
+     *
+     * @return Sdz\BlogBundle\Entity\Image $image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set $image
+     *
+     * @param Sdz\BlogBundle\Entity\Image $image
+     */
+    public function setImage( \Sdz\BlogBundle\Entity\Image $image )
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * Get $createdAt
+     *
+     * @return datetime $createdAt
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * Get $updatedAt
+     *
+     * @return datetime $updatedAt
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
+    /**
+     * Get $slug
+     *
+     * @return string $slug
+     */
     public function getSlug()
     {
         return $this->slug;
     }
 
+    /**
+     * Get $published
+     *
+     * @return boolean $published
+     */
     public function getPublished()
     {
         return $this->published;
     }
 
+    /**
+     * Set $published
+     *
+     * @param boolean $bool
+     */
     public function setPublished( $bool )
     {
         $this->published = $bool;

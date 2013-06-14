@@ -52,15 +52,15 @@ class BlogController extends Controller
 
     public function viewAction( Request $request )
     {
-        $id = $request->get( 'post_id' );
-
-        $post = array(
-          'id'          => 1,
-          'title'       => 'Mon weekend a Phi Phi Island !',
-          'author'      => 'winzou',
-          'content'     => 'Ce weekend était trop bien. Blabla…',
-          'createdAt'   => new \Datetime()
-        );
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository( 'SdzBlogBundle:Post' );
+        $post = $repo->findOneBy( array(
+                        'id' => $request->get( 'post_id' ),
+                ));
+        if( $post === null )
+        {
+            throw $this->createNotFoundException( 'no post correspond to your request' );
+        }
 
         return $this->render( 'SdzBlogBundle:Blog:view.html.twig', array(
             'post' => $post,
@@ -69,16 +69,29 @@ class BlogController extends Controller
 
     public function editAction( Request $request )
     {
-        $request->getSession()->getFlashBag()->add( 'info', 'Article bien enregistré' );
-        $request->getSession()->getFlashBag()->add( 'info', 'Oui oui, il est bien enregistré !' );
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository( 'SdzBlogBundle:Post' );
+        $post = new Post();
+        if( !$request->get( 'post_id' ))
+        {
+            $post = $repo->findOneBy( array(
+                        'id' => $request->get( 'post_id' ),
+                    ));
+        }
 
-        $post = array(
-          'id'          => 1,
-          'title'       => 'Mon weekend a Phi Phi Island !',
-          'author'      => 'winzou',
-          'content'     => 'Ce weekend était trop bien. Blabla…',
-          'createdAt'   => new \Datetime()
-        );
+        if( $this->getRequest()->getMethod() == 'POST' )
+        {
+            $em->persist( $post );
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('info', 'Article bien enregistré');
+
+            return $this->redirect(
+                    $this->generateUrl( 'sdzblog_view', array(
+                        'id' => $post->getId()
+                    )
+            ));
+        }
 
         return $this->render( 'SdzBlogBundle:Blog:edit.html.twig', array(
             'post' => $post,
