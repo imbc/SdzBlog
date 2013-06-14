@@ -1,0 +1,37 @@
+<h3>{% if edit == true %}Editing existing{% else %}New{% endif %} Post</h3>
+
+{{ ladybug_dump( post.vars.value.id ) }}
+
+<form class="form-horizontal" method="POST" {{ form_enctype( post ) }}>
+    <div class="form-horizontal">
+        <div class="control-group">
+            <div class="control-label">
+                {{ form_label( post.title ) }}
+            </div>
+            <div class="controls">
+                {{ form_widget( post.title ) }}
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="control-label">
+                {{ form_label( post.content ) }}
+            </div>
+            <div class="controls">
+                {{ form_widget( post.content ) }}
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="control-label">
+                {{ form_label( post.published ) }}
+            </div>
+            <div class="controls">
+                {{ form_widget( post.published ) }}
+            </div>
+        </div>
+    </div>
+    <div class="btn-group">
+        <input type="submit" class="btn btn-mini">
+            <i class="icon-ok"></i> Save Form
+        </input>
+    </div>
+</form>

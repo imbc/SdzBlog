@@ -29,7 +29,8 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [ ]
+#    bundles:        []
+    bundles:        ['ImbcWebsiteBundle']
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -71,3 +72,7 @@ stof_doctrine_extensions:
             timestampable: true
             sluggable: true
             sortable: true
+
+imbc_website:
+    click_to_close: true
+    lifetime: 5000 #add any of the nodes needed, not just these two

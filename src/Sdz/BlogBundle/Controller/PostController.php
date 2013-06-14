@@ -5,8 +5,10 @@ namespace Sdz\BlogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+
 use Sdz\BlogBundle\Entity\Post;
 use Sdz\BlogBundle\Entity\Image;
+use Sdz\BlogBundle\Form\Type\PostType;
 
 /**
  * Description of PostController
@@ -41,29 +43,34 @@ class PostController extends Controller
         $post = new Post();
         if( $request->get( 'post_id' ))
         {
+            $edit = true;
             $post = $repo->findOneBy( array(
                 'id' => $request->get( 'post_id' ),
             ));
         }
-
-        $post->setImage( $image );
-
-        if( $this->getRequest()->getMethod() == 'POST' )
+//        $post->setImage( $image );
+        $form = $this->createForm( new PostType(), $post );
+        if ( $request->getMethod() == 'POST' )
         {
-            $em->persist( $post );
-            $em->flush();
+            $this->get( 'session' )->getFlashBag()->add( 'info', 'F&UCK' );
 
-            $this->get( 'session' )->getFlashBag()->add( 'info', 'Article bien enregistré' );
-
-            return $this->redirect(
-                                $this->generateUrl( 'sdzblog_post_view', array(
-                                    'id' => $post->getId()
-                                )
-            ));
+            $form->bind( $request );
+            if ( $form->isValid() )
+            {
+                $em->persist( $post );
+                $em->flush();
+//                $this->get( 'session' )->getFlashBag()->add( 'info', 'Article bien enregistré' );
+                return $this->redirect(
+                            $this->generateUrl( 'sdzblog_post_view', array(
+                                'post_id' => $post->getId()
+                            )
+                ));
+            }
         }
 
         return $this->render( 'SdzBlogBundle:Post:edit.html.twig', array(
-                    'post' => $post,
+                    'edit' => $edit,
+                    'post' => $form->createView(),
         ));
     }
 

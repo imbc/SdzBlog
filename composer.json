@@ -44,7 +44,6 @@
         "davidbadura/faker-bundle": "1.0.*",
 
         "fpn/doctrine-extensions-taggable": "dev-master",
-        "kunstmaan/tagging-bundle": "dev-master",
         "friendsofsymfony/comment-bundle": "dev-master",
         "sylius/taxonomies-bundle": "dev-master",
         "white-october/pagerfanta-bundle": "dev-master",

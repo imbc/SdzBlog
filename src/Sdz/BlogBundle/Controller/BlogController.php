@@ -5,13 +5,24 @@ namespace Sdz\BlogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Sdz\BlogBundle\Entity\Post;
-use Sdz\BlogBundle\Entity\Image;
 
 class BlogController extends Controller
 {
     public function indexAction( Request $request )
     {
+        $notify = $this->get( 'imbc.notify' );
+        $notify->add( 'test', array(
+            'type'      => 'instant',
+            'message'   => 'This is awesome',
+            'title'     => 'test',
+        ));
+        if( $notify->has( 'test' ) )
+        {
+            $notifications = $notify->get( 'test' );
+        }
+
+
+
         $index = $request->get( 'index' );
 
         $repo = $this->getDoctrine()->getManager()->getRepository( 'SdzBlogBundle:Post' );
@@ -21,6 +32,7 @@ class BlogController extends Controller
                     'posts' => $posts,
                     'page'  => $index,
                     'limit' => ceil( count( $posts ) / 7 ),
+                    'notifications' => $notifications,
         ));
     }
 
@@ -32,6 +44,6 @@ class BlogController extends Controller
 
         return $this->render( 'SdzBlogBundle:Blog:menu.html.twig', array(
                     'posts' => $posts
-        ));
+        ) );
     }
 }
