@@ -52,10 +52,16 @@ class Post
     /**
      * @var \Sdz\BlogBundle\Entity\Comment
      *
-     * @ORM\OneToMany(targetEntity="Sdz\BlogBundle\Entity\Comment", mappedBy="comments")
+     * @ORM\OneToMany(targetEntity="Sdz\BlogBundle\Entity\Comment", mappedBy="posts")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $comments;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Sdz\BlogBundle\Entity\Category", inversedBy="posts", cascade={"persist"})
+     * @ORM\JoinTable(name="posts_categories")
+     */
+    protected $categories;
 
     /**
      * @var datetime $createdAt
@@ -96,6 +102,7 @@ class Post
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
         /**
@@ -188,6 +195,11 @@ class Post
         $this->image = $image;
     }
 
+    /**
+     * Get $comments
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection $comments
+     */
     public function getComments()
     {
         return $this->comments;
@@ -216,6 +228,42 @@ class Post
         if( $this->comments->contains( $comment ))
         {
             $this->comments->removeElement( $comment );
+        }
+    }
+
+    /**
+     * Get $category
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection $categories
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * Add $category
+     *
+     * @param \Sdz\BlogBundle\Entity\Category $category
+     */
+    public function addCategory( \Sdz\BlogBundle\Entity\Category $category )
+    {
+        if( !$this->categories->contains( $category ) )
+        {
+            $this->categories->add( $category );
+        }
+    }
+
+    /**
+     * Remove $category
+     *
+     * @param \Sdz\BlogBundle\Entity\Category $category
+     */
+    public function removeCategory( \Sdz\BlogBundle\Entity\Category $category )
+    {
+        if( $this->categories->contains( $category ))
+        {
+            $this->categories->removeElement( $category );
         }
     }
 

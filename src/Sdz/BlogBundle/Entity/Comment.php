@@ -36,7 +36,7 @@ class Comment
     /**
      * @var \Sdz\BlogBundle\Entity\Post $post
      *
-     * @ORM\ManyToOne(targetEntity="\Sdz\BlogBundle\Entity\Post", inversedBy="post")
+     * @ORM\ManyToOne(targetEntity="\Sdz\BlogBundle\Entity\Post", inversedBy="comment")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $post;

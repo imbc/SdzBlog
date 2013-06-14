@@ -1,27 +1,58 @@
+# blog
 sdzblog_index:
     pattern:  /{index}
     defaults: { _controller: SdzBlogBundle:Blog:index, index: 1 }
     requirements:
         index:  \d+
 
-sdzblog_view:
+# post
+sdzblog_post_view:
     pattern:  /post/{post_id}
     defaults: { _controller: SdzBlogBundle:Blog:view }
     requirements:
         post_id:  \d+
 
-sdzblog_new:
-    pattern:  /new
+sdzblog_post_new:
+    pattern:  /post/new
     defaults: { _controller: SdzBlogBundle:Blog:edit }
 
-sdzblog_edit:
+sdzblog_post_edit:
     pattern:  /post/{post_id}/edit
     defaults: { _controller: SdzBlogBundle:Blog:edit }
     requirements:
         post_id:  \d+
 
-sdzblog_delete:
+sdzblog_post_delete:
     pattern:  /post/{post_id}/delete
     defaults: { _controller: SdzBlogBundle:Blog:delete }
     requirements:
         post_id:  \d+
+
+# comment
+#sdzblog_comment_index: # this should be on post_view
+sdzblog_comment_view:
+    pattern:  /post/{post_id}#{comment_id}
+    defaults: { _controller: SdzBlogBundle:Comment:view }
+    requirements:
+        post_id:  \d+
+        comment_id:  \d+
+
+sdzblog_comment_new:
+    pattern:  /post/{post_id}#new
+    defaults: { _controller: SdzBlogBundle:Comment:edit }
+    requirements:
+        post_id:  \d+
+
+sdzblog_comment_edit:
+    pattern:  /post/{post_id}#{comment_id}/edit
+    defaults: { _controller: SdzBlogBundle:Comment:edit }
+    requirements:
+        post_id:  \d+
+        comment_id:  \d+
+
+sdzblog_comment_delete:
+    pattern:  /post/{post_id}#{comment_id}/delete
+    defaults: { _controller: SdzBlogBundle:Comment:view }
+    requirements:
+        post_id:  \d+
+        comment_id:  \d+

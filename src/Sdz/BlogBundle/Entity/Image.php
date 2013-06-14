@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Image
 {
     /**
-     * @var integer
+     * @var integer $id
      *
      * @ORM\Id
      * @ORM\Column(type="integer")
